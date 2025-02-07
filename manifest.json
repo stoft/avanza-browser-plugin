@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Avanza Portfolio Copier",
+  "version": "1.0",
+  "description": "Copy portfolio values from Avanza to clipboard",
+  "permissions": ["activeTab", "clipboardWrite"],
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.avanza.se/*"],
+      "js": ["content.js"],
+      "run_at": "document_end",
+      "persistent": true
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  }
+}

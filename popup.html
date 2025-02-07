@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        min-width: 400px;
+        padding: 16px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .button-container {
+        display: flex;
+        gap: 8px;
+        margin: 10px;
+      }
+      button {
+        padding: 8px 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      button.secondary {
+        background-color: #6c757d;
+      }
+      button.secondary:hover {
+        background-color: #545b62;
+      }
+      .debug {
+        margin-top: 16px;
+        padding: 8px;
+        border-top: 1px solid #ddd;
+        color: #666;
+        font-size: 12px;
+      }
+      .orderbook-id {
+        color: #666;
+        font-size: 0.8em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preview">
+      <table id="assetTable">
+        <thead>
+          <tr>
+            <th>Asset</th>
+            <th>Shares</th>
+            <th>ID</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="button-container">
+      <button id="refreshButton" class="secondary">
+        <span>↻</span> Refresh Data
+      </button>
+      <button id="copyButton">Copy to Clipboard</button>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

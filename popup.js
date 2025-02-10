@@ -19,7 +19,8 @@ const createTableRow = (asset) => {
   return `
     <tr>
         <td>${asset.name}</td>
-        <td>${asset.value}</td>
+        <td>${asset.quantity || asset.value}</td>
+        <td>${asset.quantity ? asset.value : ""}</td>
         <td class="orderbook-id">${asset.orderbookId || ""}</td>
     </tr>
 `;
@@ -40,7 +41,12 @@ const renderTable = (data) => {
 const copyToClipboard = (data) => {
   console.log("Copying data to clipboard:", data);
   const formattedData = data
-    .map((asset) => `${asset.name}\t${asset.value}\t${asset.orderbookId || ""}`)
+    .map(
+      (asset) =>
+        `${asset.name}\t${asset.quantity || asset.value}\t${
+          asset.quantity ? asset.value : ""
+        }\t${asset.orderbookId || ""}`
+    )
     .join("\n");
 
   navigator.clipboard

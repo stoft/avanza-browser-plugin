@@ -67,29 +67,37 @@ const extractPortfolioData = () => {
   const parseRow = (row) => {
     console.log("Parsing row:", row);
 
-    // Updated selectors to match actual structure
     const nameElem = row.querySelector("th .name-column-content a");
 
     // Extract orderbookId from href
     const href = nameElem?.getAttribute("href") || "";
     const orderbookId = href.split("/").filter(Boolean).slice(-2)[0];
-    console.log("Extracted orderbookId:", orderbookId);
 
-    // Find the quantity cell by looking for the first aza-numerical in the row
-    // that's not in a special column (like tools or checkbox)
+    // Get quantity (first numerical cell)
     const quantityElem = row.querySelector(
       "td:not(.tools-column):not(.checkbox-column) aza-numerical"
     );
 
-    console.log("Raw quantity element:", quantityElem);
+    // Get value (second to last cell before tools)
+    const cells = Array.from(row.querySelectorAll("td"));
+    const valueCell = cells[cells.length - 2];
+    const valueElem = valueCell?.querySelector("aza-numerical");
+
+    console.log("Raw elements:", { quantityElem, valueElem });
 
     const result = {
       name: safeText(nameElem),
-      value: safeText(quantityElem)
-        .replace(/\s+st$/, "") // Remove "st" (shares) suffix if present
-        .replace(/\s+/g, "") // Remove whitespace
-        .replace(/[^0-9-,]/g, "") // Keep only numbers, minus sign, and comma
-        .replace(",", ""), // Remove comma (no decimals needed for quantity)
+      quantity: safeText(quantityElem)
+        .replace(/\s+st$/, "")
+        .replace(/\s+/g, "")
+        .replace(/[^0-9-,]/g, "")
+        .replace(",", ""),
+      value: safeText(valueElem)
+        .replace(/\s+kr$/, "")
+        .replace(/kronor$/, "")
+        .replace(/\s+/g, "")
+        .replace(/[^0-9-,]/g, "")
+        .replace(",", ""),
       orderbookId,
     };
     console.log("Parsed row result:", result);

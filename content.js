@@ -133,14 +133,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 // Log when content script loads
 console.log("Avanza Portfolio Copier content script loaded");
 
+// Calculate scrollbar width
+const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
 // Visual debug indicator
 const debugDiv = document.createElement("div");
 debugDiv.style.position = "fixed";
-debugDiv.style.top = "0";
-debugDiv.style.right = "0";
+debugDiv.style.top = "50%";
+debugDiv.style.right = `${scrollbarWidth}px`;
+debugDiv.style.transform = "translateY(-50%) rotate(-90deg)";
+debugDiv.style.transformOrigin = "right center";
 debugDiv.style.background = "yellow";
 debugDiv.style.padding = "5px";
 debugDiv.style.zIndex = "9999";
+debugDiv.style.whiteSpace = "nowrap"; // Prevent text wrapping
 debugDiv.textContent = "Portfolio Copier Active";
 document.body.appendChild(debugDiv);
 
